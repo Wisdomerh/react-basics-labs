@@ -16,7 +16,8 @@ function App() {
   const [ formState, setFormState ] = useState({
     title: "",
     description: "",
-    deadline: ""
+    deadline: "",
+    priority: ""
   });
   const doneHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
@@ -43,6 +44,9 @@ function App() {
       case "deadline":
           form.deadline = event.target.value;
           break;
+      case "priority":
+          form.priority = event.target.value;
+          break;
       default:
           form = formState;
     }
@@ -59,24 +63,27 @@ function App() {
     form.id = uuidv4();
     
     tasks.push(form);
-    setTaskState({tasks});
-  }
+    setTaskState({ tasks });
+    setFormState({ title: "", description: "", deadline: "", priority: "" });
+  };
+
   return (
     <div className="container">
-    <h1>Tasky</h1>
-    {taskState.tasks.map((task, index) => (              
-      <Task 
-        title={task.title}
-        description={task.description}
-        deadline={task.deadline}
-        key={task.id}
-        done={task.done}
-        markDone={() => doneHandler(index)}
-        deleteTask = {() => deleteHandler(index)}
-      />
-    ))}
-     <AddTaskForm submit={formSubmitHandler} change={formChangeHandler} />
-  </div>
+      <h1>Tasky</h1>
+      {taskState.tasks.map((task, index) => (
+        <Task
+          title={task.title}
+          description={task.description}
+          deadline={task.deadline}
+          priority={task.priority}
+          key={task.id}
+          done={task.done}
+          markDone={() => doneHandler(index)}
+          deleteTask={() => deleteHandler(index)}
+        />
+      ))}
+      <AddTaskForm submit={formSubmitHandler} change={formChangeHandler} />
+    </div>
   );
 }
 
