@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Task from './components/Task';
 import React, { useState } from 'react';
+import AddTaskForm from './components/Form';
 
 function App() {
   const [ taskState, setTaskState ] = useState({
@@ -17,20 +18,27 @@ function App() {
     setTaskState({tasks});
     console.log(`${taskIndex} ${tasks[taskIndex].done}`);
   }
+  const deleteHandler = (taskIndex) => {
+    const tasks = [...taskState.tasks];
+    tasks.splice(taskIndex, 1);
+    setTaskState({tasks});
+  } 
   return (
     <div className="container">
-      <h1>Tasky</h1>
-      {taskState.tasks.map((task, index) => (              
-    <Task 
-      title={task.title}
-      description={task.description}
-      deadline={task.deadline}
-      key={task.id}
-      done={task.done}
-      markDone={() => doneHandler(index)}
-    />
-  ))}
-    </div>
+    <h1>Tasky</h1>
+    {taskState.tasks.map((task, index) => (              
+      <Task 
+        title={task.title}
+        description={task.description}
+        deadline={task.deadline}
+        key={task.id}
+        done={task.done}
+        markDone={() => doneHandler(index)}
+        deleteTask = {() => deleteHandler(index)}
+      />
+    ))}
+    <AddTaskForm />
+  </div>
   );
 }
 
