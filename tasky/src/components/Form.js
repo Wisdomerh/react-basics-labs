@@ -1,7 +1,6 @@
 import React from "react";
 
 const AddTaskForm = (props) => {
-
   return (
     <div>
       <form onSubmit={props.submit}>
@@ -22,7 +21,7 @@ const AddTaskForm = (props) => {
         <br />
         <label>
           Priority:
-          <select name="priority" required onChange={props.change}>
+          <select type="priority" name="priority" required onChange={props.change}>
             <option value="">--Choose Priority--</option>
             <option value="High">High</option>
             <option value="Medium">Medium</option>
